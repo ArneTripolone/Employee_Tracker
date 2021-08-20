@@ -4,6 +4,21 @@ const cTable = require('console.table');
 const inquirer = require('inquirer');
 require('dotenv').config();
 
+var con = mysql.createConnection({
+  database: "employees",
+  host: "localhost",
+  user: "root",
+  password: ,
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  con.query("SELECT * FROM employees", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+
 //generates question array in inquirer package 
 inquirer
   .prompt([
@@ -19,7 +34,7 @@ inquirer
       message: "Enter the department name",
       when: (answers) => {
           if (answers.optionselect === "add a department") {
-              return true;
+            return true
           }
       }
     }, 
@@ -105,14 +120,18 @@ inquirer
       }
     },                      
   ])
-  
   .then((answers) => {
-    console.log(answers)
+    console.log(answers.optionselect)
   })
-  .catch((error) => {
-    if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      // Something else went wrong
-    }
-  });
+
+
+//module.exports = answers
+/*
+.catch((error) => {
+  if (error.isTtyError) {
+    // Prompt couldn't be rendered in the current environment
+  } else {
+    // Something else went wrong
+  }
+
+*/
