@@ -4,11 +4,19 @@ const cTable = require('console.table');
 const inquirer = require('inquirer');
 require('dotenv').config();
 
+process.env.DB_NAME,
+process.env.DB_USER,
+  {
+    host: 'localhost',
+    dialect: 'mysql',
+  }
+;
+
 var con = mysql.createConnection({
-  database: "employees",
+  database: "employee",
   host: "localhost",
   user: "root",
-  password: "",
+  password: process.env.DB_PASSWORD
 });
 
 //generates question array in inquirer package 
@@ -22,14 +30,14 @@ inquirer
   },
   { 
     type: 'confirm',
-    name: 'confirm1',
+    name: 'viewDepartments',
     message: 'View all departments?',
     when: (answers) => {
       if (answers.optionselect === "view all departments") {
           return true,
           con.connect(function(err) {
             if (err) throw err;
-            con.query("SELECT * FROM employees", function (err, result, fields) {
+            con.query("SELECT * FROM employee", function (err, result, fields) {
               if (err) throw err;
               console.log(result);
             });
@@ -37,18 +45,61 @@ inquirer
       }
   }
 },
-/*
+{ 
+  type: 'confirm',
+  name: 'viewRoles',
+  message: 'View all roles?',
+  when: (answers) => {
+    if (answers.optionselect === "view all roles") {
+        return true,
+        con.connect(function(err) {
+          if (err) throw err;
+          con.query("SELECT * FROM employee", function (err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+          });
+        });
+    }
+}
+},
+{ 
+  type: 'confirm',
+  name: 'viewEmployees',
+  message: 'View all employees?',
+  when: (answers) => {
+    if (answers.optionselect === "view all employees") {
+        return true,
+        con.connect(function(err) {
+          if (err) throw err;
+          con.query("SELECT * FROM employee", function (err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+          });
+        });
+    }
+}
+},
     {
       type: "input",
       name: "department",
       message: "Enter the department name",
       when: (answers) => {
           if (answers.optionselect === "add a department") {
+            return true;
+          }
+      }
+    },
+    {
+      type: "confirm",
+      name: "confirmDepartment",
+      message: "Enter into database?",
+      when: (answers) => {
+          if (answers.department) {
             return true,
             con.connect(function(err) {
               if (err) throw err;
               console.log("Connected!");
-              var sql = "INSERT INTO customers (name, address) VALUES ('Company Inc', 'Highway 37')";
+              var sql = "INSERT INTO employee (name, address) VALUES ('Company Inc', 'Highway 37')";
               con.query(sql, function (err, result) {
                 if (err) throw err;
                 console.log("1 record inserted");
@@ -56,8 +107,7 @@ inquirer
             });
           }
       }
-    }, 
-*/    
+    },      
     {
       type: "input",
       name: "addrole",
