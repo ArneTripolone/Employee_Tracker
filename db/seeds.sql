@@ -28,14 +28,14 @@ INSERT INTO departments VALUES (1,'Leadership'),
 (4,'HR'),
 (5,'Administration');
 
-INSERT INTO roles VALUES (101,'CEO',250000),
-(101,'Leadership Team',225000),
-(102,'Payroll',200000,53),
-(103,'Software Engineer',175000),
-(104,'Marketing',150000),
-(105,'Sales',125000,56),
-(106,'Assistant',10000),
-(107,'Customer Service',90000);
+INSERT INTO roles VALUES (101,'CEO',250000.00,1),
+(102,'Leadership Team',225000.00,2),
+(103,'Payroll',200000.00,2),
+(104,'Software Engineer',175000.00,3),
+(105,'Marketing',150000.00,3),
+(106,'Sales',125000.00,2),
+(107,'Assistant',10000.00,5),
+(108,'Customer Service',90000.00,4);
 
 INSERT INTO employees VALUES (1001,'Georgi','Facello',2,3),
 (1002,'Bezalel','Simmel',1,4),
