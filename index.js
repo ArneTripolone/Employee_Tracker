@@ -38,7 +38,7 @@ inquirer
           return true,
           con.connect(function(err) {
             if (err) throw err;
-            con.query("SELECT * FROM employee", function (err, result, fields) {
+            con.query("SELECT * FROM departments", function (err, result, fields) {
               if (err) throw err;
               console.log(result);
             });
@@ -55,7 +55,7 @@ inquirer
         return true,
         con.connect(function(err) {
           if (err) throw err;
-          con.query("SELECT * FROM employee", function (err, result, fields) {
+          con.query("SELECT * FROM roles", function (err, result, fields) {
             if (err) throw err;
             console.log(result);
           });
@@ -72,7 +72,7 @@ inquirer
         return true,
         con.connect(function(err) {
           if (err) throw err;
-          con.query("SELECT * FROM employee", function (err, result, fields) {
+          con.query("SELECT * FROM employees", function (err, result, fields) {
             if (err) throw err;
             console.log(result);
           });
@@ -100,7 +100,7 @@ inquirer
             con.connect(function(err) {
               if (err) throw err;
               console.log("Connected!");
-              var sql = "INSERT INTO employee (name, address) VALUES ('Company Inc', 'Highway 37')";
+              var sql = "INSERT INTO employees (name, address) VALUES ('Company Inc', 'Highway 37')";
               con.query(sql, function (err, result) {
                 if (err) throw err;
                 console.log("1 record inserted");
