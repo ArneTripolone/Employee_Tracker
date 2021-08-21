@@ -8,15 +8,7 @@ var con = mysql.createConnection({
   database: "employees",
   host: "localhost",
   user: "root",
-  password: ,
-});
-
-con.connect(function(err) {
-  if (err) throw err;
-  con.query("SELECT * FROM employees", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-  });
+  password: "",
 });
 
 //generates question array in inquirer package 
@@ -27,17 +19,45 @@ inquirer
       name: 'optionselect',
       message: 'What would you like to do?',
       choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee", "update an employee role"],
-    },
+  },
+  { 
+    type: 'confirm',
+    name: 'confirm1',
+    message: 'View all departments?',
+    when: (answers) => {
+      if (answers.optionselect === "view all departments") {
+          return true,
+          con.connect(function(err) {
+            if (err) throw err;
+            con.query("SELECT * FROM employees", function (err, result, fields) {
+              if (err) throw err;
+              console.log(result);
+            });
+          });
+      }
+  }
+},
+/*
     {
       type: "input",
       name: "department",
       message: "Enter the department name",
       when: (answers) => {
           if (answers.optionselect === "add a department") {
-            return true
+            return true,
+            con.connect(function(err) {
+              if (err) throw err;
+              console.log("Connected!");
+              var sql = "INSERT INTO customers (name, address) VALUES ('Company Inc', 'Highway 37')";
+              con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("1 record inserted");
+              });
+            });
           }
       }
     }, 
+*/    
     {
       type: "input",
       name: "addrole",
@@ -124,14 +144,10 @@ inquirer
     console.log(answers.optionselect)
   })
 
-
-//module.exports = answers
-/*
 .catch((error) => {
   if (error.isTtyError) {
     // Prompt couldn't be rendered in the current environment
   } else {
     // Something else went wrong
   }
-
-*/
+})
