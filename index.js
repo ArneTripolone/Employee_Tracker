@@ -4,6 +4,8 @@ const cTable = require('console.table');
 const inquirer = require('inquirer');
 require('dotenv').config();
 
+process.exitCode = 1,
+
 process.env.DB_NAME,
 process.env.DB_USER,
   {
