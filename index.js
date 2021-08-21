@@ -101,8 +101,8 @@ inquirer
             return true,
             con.connect(function(err) {
               if (err) throw err;
-              console.log("Connected!");
-              var sql = "INSERT INTO employees (name, address) VALUES ('Company Inc', 'Highway 37')";
+              console.log("Connected!"); 
+              var sql = "INSERT INTO departments (dep_id, dep_name) VALUES (NOT NULL, " + "'" + `${answers.department}` + "')";
               con.query(sql, function (err, result) {
                 if (err) throw err;
                 console.log("1 record inserted");

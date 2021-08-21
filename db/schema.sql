@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS employee;
 USE employee;
 
 CREATE TABLE departments (
-dep_id INT PRIMARY KEY,
+dep_id  INT PRIMARY KEY AUTO_INCREMENT,
 dep_name VARCHAR(30)
 );
 
