@@ -42,7 +42,7 @@ inquirer
             if (err) throw err;
             con.query("SELECT * FROM departments", function (err, result, fields) {
               if (err) throw err;
-              console.table(result);
+              console.table('\n', result);
             });
           });
       }
@@ -59,7 +59,7 @@ inquirer
           if (err) throw err;
           con.query("SELECT * FROM roles", function (err, result, fields) {
             if (err) throw err;
-            console.table(result);
+            console.table('\n', result);
           });
         });
     }
@@ -76,7 +76,7 @@ inquirer
           if (err) throw err;
           con.query("SELECT * FROM employees", function (err, result, fields) {
             if (err) throw err;
-            console.table(result);
+            console.table('\n', result);
           });
         });
     }
@@ -182,8 +182,8 @@ inquirer
     },
     {
       type: "input",
-      name: "role",
-      message: "Enter employee role:",
+      name: "roleid",
+      message: "Enter employee role id:",
       when: (answers) => {
           if (answers.lastname) {
               return true;
@@ -192,25 +192,50 @@ inquirer
     },
     {
       type: "input",
-      name: "manager",
-      message: "Enter employee manager:",
+      name: "managerid",
+      message: "Enter employee manager id:",
       when: (answers) => {
-          if (answers.role) {
+          if (answers.roleid) {
               return true;
           }
       }
     },
     {
+    type: "confirm",
+    name: "confirmAddEmployee",
+    message: "Add employee to the database?",
+    when: (answers) => {
+        if (answers.optionselect === "update an employee role") {
+            return true;
+          }
+        }
+    },  
+    {
       type: "list",
       name: "updateemployee",
-      message: "Select employee to update",
-      choices: ["not sure how to do this one exactly"],
+      message: "Choose employee to update:",
       when: (answers) => {
-          if (answers.optionselect === "update an employee role") {
-              return true;
+          if (answers.optionselect) {
+              return true,
+              con.connect(function(err) {
+                if (err) throw err;
+                con.query("SELECT * FROM employees", function (err, result, fields) {
+                  if (err) throw err;
+                  console.table('\n', result);
+                });
+              });
           }
       }
-    },                      
+    },
+    {
+    type: "input",
+    name: "updatedemployee",
+    when: (answers) => {
+        if (answers.updateemployee) {
+            return true;
+          }
+        }
+      }
   ])
   .then((answers) => {
     console.log(answers.optionselect)

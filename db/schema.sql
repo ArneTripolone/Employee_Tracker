@@ -15,7 +15,7 @@ roles_department_id INT
 );
 
 CREATE TABLE employees (
-emp_id INT PRIMARY KEY,
+emp_id INT PRIMARY KEY AUTO_INCREMENT,
 emp_first_name VARCHAR(30),
 emp_last_name VARCHAR(30),
 emp_role_id INT,
