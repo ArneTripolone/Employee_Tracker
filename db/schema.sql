@@ -8,7 +8,7 @@ dep_name VARCHAR(30)
 );
 
 CREATE TABLE roles (
-roles_id INT PRIMARY KEY,
+roles_id INT PRIMARY KEY AUTO_INCREMENT,
 roles_title VARCHAR(30),
 roles_salary DECIMAL,
 roles_department_id INT

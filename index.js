@@ -114,13 +114,13 @@ inquirer
     {
       type: "input",
       name: "addrole",
-      message: "Enter role name:",
+      message: "Enter role title:",
       when: (answers) => {
           if (answers.optionselect === "add a role") {
               return true;
+            }
           }
-      }
-    },
+        },
     {
       type: "input",
       name: "salary",
@@ -130,17 +130,36 @@ inquirer
               return true;
           }
       }
-    },    
+    },
     {
       type: "input",
       name: "adddepartment",
-      message: "Enter role department:",
+      message: "Enter role department id:",
       when: (answers) => {
           if (answers.salary) {
               return true;
+            }
           }
-      }
-    },
+        },
+      {
+        type: "confirm",
+        name: "confirmAddRole",
+        message: "Add role to the database?",
+        when: (answers) => {
+            if (answers.adddepartment) {
+                return true,
+                con.connect(function(err) {
+                  if (err) throw err;
+                  console.log("Connected!"); 
+                  var sql = "INSERT INTO roles (roles_id, roles_title, roles_salary, roles_department_id) VALUES (NOT NULL, " + "'" + `${answers.addrole}` + "', " + `${answers.salary}` + ", " + "" + `${answers.adddepartment}` + ")";
+                  con.query(sql, function (err, result) {
+                    if (err) throw err;
+                    console.log("1 record inserted");
+                  });
+                });
+              }
+          }
+        },  
     {
       type: "input",
       name: "addemployee",
