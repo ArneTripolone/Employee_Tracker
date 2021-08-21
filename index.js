@@ -12,6 +12,7 @@ process.env.DB_USER,
   }
 ;
 
+// Database from https://www.mikedane.com/databases/sql/creating-company-database/
 var con = mysql.createConnection({
   database: "employee",
   host: "localhost",
