@@ -42,7 +42,7 @@ inquirer
             if (err) throw err;
             con.query("SELECT * FROM departments", function (err, result, fields) {
               if (err) throw err;
-              console.log(result);
+              console.table(result);
             });
           });
       }
@@ -59,7 +59,7 @@ inquirer
           if (err) throw err;
           con.query("SELECT * FROM roles", function (err, result, fields) {
             if (err) throw err;
-            console.log(result);
+            console.table(result);
           });
         });
     }
@@ -76,7 +76,7 @@ inquirer
           if (err) throw err;
           con.query("SELECT * FROM employees", function (err, result, fields) {
             if (err) throw err;
-            console.log(result);
+            console.table(result);
           });
         });
     }
