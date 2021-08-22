@@ -199,43 +199,47 @@ inquirer
               return true;
           }
       }
+    },  
+    {
+      type: "input",
+      name: "updateemp",
+      message: "Enter employee id of employee whose role you would like to update:",
+      when: (answers) => {
+          if (answers.optionselect === "update an employee role") {
+              return true;
+          }
+      }
+    },
+    {
+      type: "input",
+      name: "newempid",
+      message: "Enter new role id:",
+      when: (answers) => {
+          if (answers.updateemp) {
+              return true;
+          }
+      }
     },
     {
     type: "confirm",
-    name: "confirmAddEmployee",
-    message: "Add employee to the database?",
+    name: "confirmUpdate",
+    message: "Confirming you would like to employee role id?",
     when: (answers) => {
-        if (answers.optionselect === "update an employee role") {
-            return true;
-          }
+        if (answers.updateemp) {
+          return true,
+          con.connect(function(err) {
+            if (err) throw err;
+            console.log("Connected!"); 
+            var sql = "UPDATE employees SET emp_role_id=" + `${answers.newempid}` + " WHERE emp_role_id=" + `${answers.updateemp}`;
+            con.query(sql, function (err, result) {
+              if (err) throw err;
+              console.log("1 record updated");
+            });
+          });
         }
-    },  
-    {
-      type: "list",
-      name: "updateemployee",
-      message: "Choose employee to update:",
-      when: (answers) => {
-          if (answers.optionselect) {
-              return true,
-              con.connect(function(err) {
-                if (err) throw err;
-                con.query("SELECT * FROM employees", function (err, result, fields) {
-                  if (err) throw err;
-                  console.table('\n', result);
-                });
-              });
-          }
-      }
-    },
-    {
-    type: "input",
-    name: "updatedemployee",
-    when: (answers) => {
-        if (answers.updateemployee) {
-            return true;
-          }
-        }
-      }
+    }
+  },      
+
   ])
   .then((answers) => {
     console.log(answers.optionselect)
