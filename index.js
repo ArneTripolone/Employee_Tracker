@@ -203,7 +203,26 @@ inquirer
               return true;
           }
       }
-    },  
+    },
+    {
+    type: "confirm",
+    name: "confirmAddEmployee",
+    message: "Add employee to the database?",
+    when: (answers) => {
+        if (answers.managerid) {
+            return true,
+            con.connect(function(err) {
+              if (err) throw err;
+              console.log("Connected!"); 
+              var sql = "INSERT INTO employees (emp_id, emp_first_name, emp_last_name, emp_role_id, emp_manager_id) VALUES (NOT NULL, " + "'" + `${answers.addemployee}` + "', " + "'" + `${answers.lastname}` + "', " + `${answers.roleid}` + ", " + "" + `${answers.managerid}` + ")";
+              con.query(sql, function (err, result) {
+                if (err) throw err;
+                console.log("1 record inserted");
+              });
+            });
+          }
+      }
+    },      
     {
       type: "input",
       name: "updateemp",
@@ -227,7 +246,7 @@ inquirer
     {
     type: "confirm",
     name: "confirmUpdate",
-    message: "Confirming you would like to employee role id?",
+    message: "Confirming you would like to update employee role id?",
     when: (answers) => {
         if (answers.updateemp) {
           return true,
