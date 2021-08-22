@@ -14,3 +14,5 @@ Users have 7 options to choose from (3 VIEW queries, 3 INSERT INTO queries and 1
 7. update an employee role
 
 ## Walkthrough Screencast
+Watch this walkthrough video to see how to deploy this application.
+- https://youtu.be/bKW7oB2basI
