@@ -1,11 +1,9 @@
-// Import and require mysql2
 const mysql = require('mysql2');
 const cTable = require('console.table');
 const inquirer = require('inquirer');
 require('dotenv').config();
 
-process.exitCode = 1,
-
+//Uses dotenv package to hide passwords
 process.env.DB_NAME,
 process.env.DB_USER,
   {
@@ -14,7 +12,7 @@ process.env.DB_USER,
   }
 ;
 
-// Database from https://www.mikedane.com/databases/sql/creating-company-database/
+// Database sourced from https://www.mikedane.com/databases/sql/creating-company-database/
 var con = mysql.createConnection({
   database: "employee",
   host: "localhost",
@@ -22,7 +20,13 @@ var con = mysql.createConnection({
   password: process.env.DB_PASSWORD
 });
 
-//generates question array in inquirer package 
+/* See below for notes on questions array
+- Questions are generated in node with the inquirer package
+- Console.table package presents answers in node in table format
+- '\n' adds a break in the console to enhance appearance and functionality 
+- con.querys are used to generate queries for the sql db
+*/
+
 inquirer
   .prompt([
     { 
@@ -239,7 +243,6 @@ inquirer
         }
     }
   },      
-
   ])
   .then((answers) => {
     console.log(answers.optionselect)
